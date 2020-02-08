@@ -1,0 +1,11 @@
+type Event @model {
+  id: ID!
+  name: String!
+  defaultTime: AWSTime!
+  instances: [EventInstance] @connection(name: "EventInstances")
+}
+type EventInstance @model {
+  id: ID!
+  date: AWSDate!
+  event: Event @connection(name: "EventInstances")
+}
