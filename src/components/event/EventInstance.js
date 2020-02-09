@@ -1,14 +1,27 @@
 import React, { useContext } from 'react'
-import {EventContext} from './EventContext';
+import { EventInstanceContext } from './EventInstanceContext';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box'
+import moment from 'moment';
+import Chooser from './Chooser';
+import Attendance from './Attendance';
 
 const EventInstance = () => {
-    const event = useContext(EventContext);
-    console.log(event);
+    const eventInstance = useContext(EventInstanceContext);
+    console.log(eventInstance);
+    let date = moment(eventInstance.date);
+    let time = moment(eventInstance.event.defaultTime, 'hh:mm:ss.sss')
     return (
-        <Typography variant="h5" gutterBottom>
-            { !event ? "Loading" : event.name}
-        </Typography>
+        <Box>
+            <Typography variant="h5" gutterBottom>
+                {eventInstance.event.name}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+            {date.format('dddd, MMMM Do YYYY')} @ {time.format('h:mm a')}
+            </Typography>
+            <Chooser/>
+            <Attendance/>
+        </Box>
     )
 }
 
