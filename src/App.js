@@ -11,9 +11,10 @@ export default function App() {
     <Container maxWidth="sm">
       <Box my={4}>
         <Typography variant="body1" gutterBottom>
-          <img src = {logo} alt="Old Man Hoops Logo" style={{border: 1}}/>
-          <Event/>
+          <img src={logo} alt="Old Man Hoops Logo" style={{ border: 1 }} />
         </Typography>
+        <Event />
+
         <Footer />
       </Box>
     </Container>

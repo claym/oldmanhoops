@@ -9,7 +9,7 @@ import EventInstance from './EventInstance';
 
 const Event = () => {
 
-    const [event, setEvent] = useState({});
+    const [event, setEvent] = useState(null);
 
     const loadEvent = async () => {
         //const eventData = await API.graphql(graphqlOperation(GetEvent, { id: "29630c06-3fa9-41a4-9227-ce4470fb4522" }))
@@ -23,6 +23,12 @@ const Event = () => {
     useEffect(() => {
         loadEvent();
     }, [])
+
+    if(!event) {
+        return (
+            <div>Loading...</div>
+        )
+    }
 
     return (
         <EventContext.Provider value={event}>
