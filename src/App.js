@@ -2,8 +2,8 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Footer from './Footer';
-import Event from './Event';
+import Footer from './components/Footer';
+import Event from './components/event/Event';
 import logo from './images/omh_text.svg';
 
 export default function App() {

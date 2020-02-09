@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API, graphqlOperation } from 'aws-amplify'
 //import { getEvent as GetEvent } from './graphql/queries'
-import { listEvents as ListEvents } from './graphql/queries'
+import { listEvents as ListEvents } from '../../graphql/queries'
 //import { listEventInstances as ListEventInstances } from './graphql/queries';
 import { EventContext } from './EventContext';
 import EventInstance from './EventInstance';
