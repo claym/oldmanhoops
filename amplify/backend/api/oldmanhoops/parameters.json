@@ -1,5 +1,11 @@
 {
     "AppSyncApiName": "oldmanhoops",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
-    "DynamoDBEnableServerSideEncryption": "false"
+    "DynamoDBEnableServerSideEncryption": "false",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "autholdmanhoops",
+            "Outputs.UserPoolId"
+        ]
+    }
 }

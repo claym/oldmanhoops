@@ -10,6 +10,11 @@
             "StackName": "amplify-oldmanhoops-dev-144013",
             "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-dev-144013/d378b360-4aaa-11ea-9efe-0ad9172a6ca8",
             "AmplifyAppId": "dl96eaajl0d2u"
+        },
+        "categories": {
+            "auth": {
+                "oldmanhoops": {}
+            }
         }
     }
 }

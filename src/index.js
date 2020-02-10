@@ -12,6 +12,7 @@ import config from './aws-exports'
 
 Amplify.configure(config)
 
+
 ReactDOM.render(
     <ThemeProvider theme={theme}>
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

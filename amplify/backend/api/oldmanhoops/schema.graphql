@@ -1,10 +1,16 @@
-type Event @model {
+type Event @model
+  @aws_iam
+  @aws_cognito_user_pools
+  @auth(rules: [{ allow: public, provider: iam }]) {
   id: ID!
   name: String!
   defaultTime: AWSTime!
   instances: [EventInstance] @connection(name: "EventInstances")
 }
-type EventInstance @model {
+type EventInstance 
+  @aws_iam
+  @aws_cognito_user_pools
+  @model @auth(rules: [{ allow: public, provider: iam }]) {
   id: ID!
   date: AWSDate!
   event: Event @connection(name: "EventInstances")
