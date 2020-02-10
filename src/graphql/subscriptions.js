@@ -47,6 +47,9 @@ export const onCreateEventInstance = /* GraphQL */ `
         name
         defaultTime
       }
+      attendees {
+        nextToken
+      }
     }
   }
 `;
@@ -59,6 +62,9 @@ export const onUpdateEventInstance = /* GraphQL */ `
         id
         name
         defaultTime
+      }
+      attendees {
+        nextToken
       }
     }
   }
@@ -73,6 +79,48 @@ export const onDeleteEventInstance = /* GraphQL */ `
         name
         defaultTime
       }
+      attendees {
+        nextToken
+      }
+    }
+  }
+`;
+export const onCreateAttendee = /* GraphQL */ `
+  subscription OnCreateAttendee($owner: String!) {
+    onCreateAttendee(owner: $owner) {
+      id
+      status
+      eventInstance {
+        id
+        date
+      }
+      owner
+    }
+  }
+`;
+export const onUpdateAttendee = /* GraphQL */ `
+  subscription OnUpdateAttendee($owner: String!) {
+    onUpdateAttendee(owner: $owner) {
+      id
+      status
+      eventInstance {
+        id
+        date
+      }
+      owner
+    }
+  }
+`;
+export const onDeleteAttendee = /* GraphQL */ `
+  subscription OnDeleteAttendee($owner: String!) {
+    onDeleteAttendee(owner: $owner) {
+      id
+      status
+      eventInstance {
+        id
+        date
+      }
+      owner
     }
   }
 `;

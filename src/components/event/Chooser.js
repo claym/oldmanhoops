@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {useEffect, useRef} from 'react';
 import HelpIcon from '@material-ui/icons/Help';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -7,8 +8,15 @@ import IconButton from '@material-ui/core/IconButton'
 //import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Grid, Typography } from '@material-ui/core';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Auth } from 'aws-amplify';
 const Chooser = () => {
-    console.log('choose');
+    let authenticated = useRef(null);
+    useEffect(() => {
+        Auth.currentCredentials().then(creds => {
+            authenticated.current = creds.authenticated;
+        })
+    })
+
     const styles = {
         smallIcon: {
             width: 90,
@@ -49,25 +57,40 @@ const Chooser = () => {
     } else if(isMedium) {
         size = "medium";
     }
-    console.log('size ', size)
+    
+    
+
     return (
         <>
         <Typography variant="body1" gutterBottom>
-            Please Respond:
+            <Prompt authenticated={authenticated}/>
         </Typography>
         <Grid container justify = "center">
-            <IconButton style={styles[size]}>
+            <IconButton style={styles[size]} disabled={!authenticated.current}>
                 <CheckCircleIcon color="secondary" style={styles[size+"Icon"]} />
             </IconButton>
-            <IconButton style={styles[size]}>
+            <IconButton style={styles[size]} disabled={!authenticated.current}>
                 <HelpIcon color="secondary" style={styles[size+"Icon"]} />
             </IconButton>
-            <IconButton style={styles[size]}>
+            <IconButton style={styles[size]} disabled={!authenticated.current}>
                 <CancelIcon color="secondary" style={styles[size+"Icon"]} />
             </IconButton>            
         </Grid>
         </>
     )
+}
+
+const Prompt = (props) => {
+    console.log(props.authenticated)
+    if(props.authenticated.current) {
+        return (
+            <>Please Respond</>
+        )
+    }
+    return (
+        <>Please LOGIN to respond</>
+    )
+
 }
 
 export default Chooser

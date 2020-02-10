@@ -29,19 +29,6 @@ export const getEvent = /* GraphQL */ `
     }
   }
 `;
-export const getEventInstance = /* GraphQL */ `
-  query GetEventInstance($id: ID!) {
-    getEventInstance(id: $id) {
-      id
-      date
-      event {
-        id
-        name
-        defaultTime
-      }
-    }
-  }
-`;
 export const listEventInstances = /* GraphQL */ `
   query ListEventInstances(
     $filter: ModelEventInstanceFilterInput
@@ -52,6 +39,51 @@ export const listEventInstances = /* GraphQL */ `
       items {
         id
         date
+      }
+      nextToken
+    }
+  }
+`;
+export const getEventInstance = /* GraphQL */ `
+  query GetEventInstance($id: ID!) {
+    getEventInstance(id: $id) {
+      id
+      date
+      event {
+        id
+        name
+        defaultTime
+      }
+      attendees {
+        nextToken
+      }
+    }
+  }
+`;
+export const getAttendee = /* GraphQL */ `
+  query GetAttendee($id: ID!) {
+    getAttendee(id: $id) {
+      id
+      status
+      eventInstance {
+        id
+        date
+      }
+      owner
+    }
+  }
+`;
+export const listAttendees = /* GraphQL */ `
+  query ListAttendees(
+    $filter: ModelAttendeeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAttendees(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        status
+        owner
       }
       nextToken
     }

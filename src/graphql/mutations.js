@@ -59,6 +59,9 @@ export const createEventInstance = /* GraphQL */ `
         name
         defaultTime
       }
+      attendees {
+        nextToken
+      }
     }
   }
 `;
@@ -74,6 +77,9 @@ export const updateEventInstance = /* GraphQL */ `
         id
         name
         defaultTime
+      }
+      attendees {
+        nextToken
       }
     }
   }
@@ -91,6 +97,57 @@ export const deleteEventInstance = /* GraphQL */ `
         name
         defaultTime
       }
+      attendees {
+        nextToken
+      }
+    }
+  }
+`;
+export const createAttendee = /* GraphQL */ `
+  mutation CreateAttendee(
+    $input: CreateAttendeeInput!
+    $condition: ModelAttendeeConditionInput
+  ) {
+    createAttendee(input: $input, condition: $condition) {
+      id
+      status
+      eventInstance {
+        id
+        date
+      }
+      owner
+    }
+  }
+`;
+export const updateAttendee = /* GraphQL */ `
+  mutation UpdateAttendee(
+    $input: UpdateAttendeeInput!
+    $condition: ModelAttendeeConditionInput
+  ) {
+    updateAttendee(input: $input, condition: $condition) {
+      id
+      status
+      eventInstance {
+        id
+        date
+      }
+      owner
+    }
+  }
+`;
+export const deleteAttendee = /* GraphQL */ `
+  mutation DeleteAttendee(
+    $input: DeleteAttendeeInput!
+    $condition: ModelAttendeeConditionInput
+  ) {
+    deleteAttendee(input: $input, condition: $condition) {
+      id
+      status
+      eventInstance {
+        id
+        date
+      }
+      owner
     }
   }
 `;

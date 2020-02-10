@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API, graphqlOperation } from 'aws-amplify'
+import { API } from 'aws-amplify'
 //import { getEvent as GetEvent } from './graphql/queries'
 //import { listEvents as ListEvents } from '../../graphql/queries'
 //import { listEventInstances as ListEventInstances } from './graphql/queries';
@@ -7,7 +7,6 @@ import { listEventInstancesByDate } from './eventQueries'
 import { EventInstanceContext } from './EventInstanceContext';
 import EventInstance from './EventInstance';
 import { Auth } from 'aws-amplify'
-import AUTH_MODE from 'aws-amplify'
 
 const Event = () => {
 
@@ -28,7 +27,7 @@ const Event = () => {
         const eventInstanceData = await API.graphql(
             {
                 query: listEventInstancesByDate, 
-                variables: {"date": "2020-02-10Z"},
+                variables: {"date": "2020-02-10"},
                 authMode: "AWS_IAM"
             });
         console.log('eventInstanceData: ', eventInstanceData);

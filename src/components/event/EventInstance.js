@@ -10,7 +10,7 @@ const EventInstance = () => {
     const eventInstance = useContext(EventInstanceContext);
     console.log(eventInstance);
     let date = moment(eventInstance.date);
-    let time = moment(eventInstance.event.defaultTime, 'hh:mm:ss.sss')
+    let time = moment(eventInstance.event.defaultTime, 'hh:mm:ss')
     return (
         <Box>
             <Typography variant="h5" gutterBottom>
