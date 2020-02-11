@@ -8,7 +8,7 @@ import Attendance from './Attendance';
 
 const EventInstance = () => {
     const eventInstance = useContext(EventInstanceContext);
-    console.log(eventInstance);
+    //console.log(eventInstance);
     let date = moment(eventInstance.date);
     let time = moment(eventInstance.event.defaultTime, 'hh:mm:ss')
     return (

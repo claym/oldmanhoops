@@ -6,15 +6,9 @@ import { API } from 'aws-amplify'
 import { listEventInstancesByDate } from './eventQueries'
 import { EventInstanceContext } from './EventInstanceContext';
 import EventInstance from './EventInstance';
-import { Auth } from 'aws-amplify'
+//import { Auth } from 'aws-amplify'
 
 const Event = () => {
-
-
-    Auth.currentCredentials()
-    .then(d => console.log('data: ', d))
-    .catch(e => console.log('error: ', e))
-  
 
     const [event, setEvent] = useState(null);
 
@@ -30,7 +24,7 @@ const Event = () => {
                 variables: {"date": "2020-02-10"},
                 authMode: "AWS_IAM"
             });
-        console.log('eventInstanceData: ', eventInstanceData);
+        //console.log('eventInstanceData: ', eventInstanceData);
         //setEvent(eventData.data.listEvents.items[0]);
         setEvent(eventInstanceData.data.listEventInstances.items[0]);
     }

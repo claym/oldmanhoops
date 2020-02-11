@@ -1,29 +1,61 @@
-import React from 'react';
+import React from "react";
+import { useEffect, useState } from "react";
 
-//import { withAuthenticator } from 'aws-amplify-react'
+import { Auth, Hub } from "aws-amplify";
 
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
+import { withAuthenticator } from "aws-amplify-react";
 
-import Footer from './components/Footer';
-import Event from './components/event/Event';
-import logo from './images/omh_text.svg';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect
+} from "react-router-dom";
+
+import Home from "./Home";
+import { AuthContext } from "./components/user/AuthContext";
 
 const App = () => {
-  return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="body1" gutterBottom>
-          <img src={logo} alt="Old Man Hoops Logo" style={{ border: 1 }} />
-        </Typography>
-        <Event />
+    let [user, setUser] = useState(null);
 
-        <Footer />
-      </Box>
-    </Container>
-  );
-}
+    useEffect(() => {
+        let updateUser = async (authState) => {
+            try {
+                //let user = await Auth.currentAuthenticatedUser();
+                //setUser(user)
+                Auth.currentCredentials().then((currentUser) => {
+                    setUser(currentUser);
+                });
+            } catch {
+                setUser(null);
+            }
+        };
+        Hub.listen("auth", updateUser); // listen for login/signup events
+        updateUser(); // check manually the first time because we won't get a Hub event
+        return () => Hub.remove("auth", updateUser); // cleanup
+    }, []);
+
+    const Login = () => {
+        return <Redirect to="/" />;
+    };
+
+    const WithAuthComponent = withAuthenticator(Login);
+
+    return (
+        <Router>
+            <Switch>
+                <Route path="/login">
+                    <WithAuthComponent />
+                </Route>
+                <AuthContext.Provider value={user}>
+                    <Route path="/">
+                        <Home />
+                    </Route>
+                </AuthContext.Provider>
+            </Switch>
+        </Router>
+    );
+};
 
 export default App;
 //export default withAuthenticator(App, { includeGreetings: true })
