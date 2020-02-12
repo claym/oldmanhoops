@@ -1,31 +1,30 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 import { Auth, Hub } from "aws-amplify";
 
-import { withAuthenticator } from "aws-amplify-react";
-
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect
-} from "react-router-dom";
+import { Authenticator, SignUp } from "aws-amplify-react";
 
 import Home from "./Home";
 import { AuthContext } from "./components/user/AuthContext";
+import { LoginContext } from "./components/user/LoginContext";
 
 const App = () => {
+    let [login, setLogin] = useState(false);
+    const value = useMemo(() => ({ login, setLogin }), [login, setLogin]);
     let [user, setUser] = useState(null);
-
     useEffect(() => {
         let updateUser = async (authState) => {
             try {
-                //let user = await Auth.currentAuthenticatedUser();
-                //setUser(user)
-                Auth.currentCredentials().then((currentUser) => {
-                    setUser(currentUser);
-                });
+                Auth.currentCredentials()
+                    .then((currentUser) => {
+                        setUser(currentUser);
+                    })
+                    .then(() => {
+                        if (authState?.payload?.event === "signIn") {
+                            setLogin(false);
+                        }
+                    });
             } catch {
                 setUser(null);
             }
@@ -35,25 +34,16 @@ const App = () => {
         return () => Hub.remove("auth", updateUser); // cleanup
     }, []);
 
-    const Login = () => {
-        return <Redirect to="/" />;
-    };
-
-    const WithAuthComponent = withAuthenticator(Login);
+    if (login) {
+        return <Authenticator hide={[SignUp]} />;
+    }
 
     return (
-        <Router>
-            <Switch>
-                <Route path="/login">
-                    <WithAuthComponent />
-                </Route>
-                <AuthContext.Provider value={user}>
-                    <Route path="/">
-                        <Home />
-                    </Route>
-                </AuthContext.Provider>
-            </Switch>
-        </Router>
+        <LoginContext.Provider value={value}>
+            <AuthContext.Provider value={user}>
+                <Home />
+            </AuthContext.Provider>
+        </LoginContext.Provider>
     );
 };
 

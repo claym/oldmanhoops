@@ -4,7 +4,6 @@ import Link from "@material-ui/core/Link";
 import { AuthContext } from "./user/AuthContext";
 import { useContext } from "react";
 import { Auth } from "aws-amplify";
-import { Link as RouterLink } from "react-router-dom";
 
 export default () => {
     const user = useContext(AuthContext);
@@ -37,7 +36,7 @@ const LoginLogout = (props) => {
 
     if (!props.authenticated) {
         return (
-            <Link color="inherit" component={RouterLink} to="/login">
+            <Link color="inherit">
                 Login
             </Link>
         );

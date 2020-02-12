@@ -8,13 +8,17 @@ import IconButton from "@material-ui/core/IconButton";
 //import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Grid, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import Link from "@material-ui/core/Link";
 
-import { Link } from "react-router-dom";
 import { AuthContext } from "../user/AuthContext";
+import { LoginContext } from './../user/LoginContext';
+
+
 
 const Chooser = () => {
 
     const user = useContext(AuthContext);
+
 
     const styles = {
         smallIcon: {
@@ -78,12 +82,13 @@ const Chooser = () => {
 };
 
 const Prompt = (props) => {
+    const {setLogin} = useContext(LoginContext);
     if (props.authenticated) {
         return <>Please Respond</>;
     }
     return (
         <>
-            Please <Link to="/login">Login</Link> to respond
+            Please <Link to="/login" onClick={() => setLogin(true)}>Login</Link> to respond
         </>
     );
 };
