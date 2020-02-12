@@ -15,19 +15,21 @@ const App = () => {
     let [user, setUser] = useState(null);
     useEffect(() => {
         let updateUser = async (authState) => {
-            try {
-                Auth.currentCredentials()
-                    .then((currentUser) => {
-                        setUser(currentUser);
-                    })
-                    .then(() => {
-                        if (authState?.payload?.event === "signIn") {
-                            setLogin(false);
-                        }
-                    });
-            } catch {
-                setUser(null);
-            }
+            console.log("AuthState: ", authState);
+
+            Auth.currentAuthenticatedUser()
+                .then((currentUser) => {
+                    setUser(currentUser);
+                    console.log("CurrentUser: ", currentUser);
+                })
+                .then(() => {
+                    if (authState?.payload?.event === "signIn") {
+                        setLogin(false);
+                    }
+                })
+                .catch((err) => {
+                    setUser(null);
+                });
         };
         Hub.listen("auth", updateUser); // listen for login/signup events
         updateUser(); // check manually the first time because we won't get a Hub event

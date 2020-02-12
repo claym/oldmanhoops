@@ -64,7 +64,7 @@ const Chooser = () => {
     return (
         <>
             <Typography variant="body1" gutterBottom>
-                <Prompt authenticated={user.authenticated} />
+                <Prompt user={(user)} />
             </Typography>
             <Grid container justify="center">
                 <IconButton style={styles[size]} >
@@ -83,7 +83,7 @@ const Chooser = () => {
 
 const Prompt = (props) => {
     const {setLogin} = useContext(LoginContext);
-    if (props.authenticated) {
+    if (props.user) {
         return <>Please Respond</>;
     }
     return (
