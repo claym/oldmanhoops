@@ -7,6 +7,7 @@ import { listEventInstancesByDate } from './eventQueries'
 import { EventInstanceContext } from './EventInstanceContext';
 import EventInstance from './EventInstance';
 //import { Auth } from 'aws-amplify'
+import moment from 'moment';
 
 const Event = () => {
 
@@ -21,7 +22,7 @@ const Event = () => {
         const eventInstanceData = await API.graphql(
             {
                 query: listEventInstancesByDate, 
-                variables: {"date": "2020-02-10"},
+                variables: {"date": moment().format('YYYY-MM-DD')},
                 authMode: "AWS_IAM"
             });
         //console.log('eventInstanceData: ', eventInstanceData);
