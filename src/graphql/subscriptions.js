@@ -90,6 +90,7 @@ export const onCreateAttendee = /* GraphQL */ `
     onCreateAttendee(owner: $owner) {
       id
       status
+      name
       eventInstance {
         id
         date
@@ -103,6 +104,7 @@ export const onUpdateAttendee = /* GraphQL */ `
     onUpdateAttendee(owner: $owner) {
       id
       status
+      name
       eventInstance {
         id
         date
@@ -116,6 +118,7 @@ export const onDeleteAttendee = /* GraphQL */ `
     onDeleteAttendee(owner: $owner) {
       id
       status
+      name
       eventInstance {
         id
         date

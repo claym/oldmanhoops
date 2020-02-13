@@ -1,5 +1,5 @@
 import React from "react";
-import {useContext} from "react";
+import { useContext } from "react";
 import HelpIcon from "@material-ui/icons/Help";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -10,46 +10,37 @@ import { Grid, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Link from "@material-ui/core/Link";
 
+import { API, graphqlOperation } from "aws-amplify";
+
 import { AuthContext } from "../user/AuthContext";
-import { LoginContext } from './../user/LoginContext';
+import { LoginContext } from "./../user/LoginContext";
 
-
+import styles from "./ChooserButtonStyles";
+import { EventInstanceContext } from "./EventInstanceContext";
+import { createAttendee } from "../../graphql/mutations";
 
 const Chooser = () => {
-
     const user = useContext(AuthContext);
+    const eventInstance = useContext(EventInstanceContext);
 
-
-    const styles = {
-        smallIcon: {
-            width: 90,
-            height: 90
-        },
-        small: {
-            width: 94,
-            height: 94,
-            padding: 2
-        },
-        mediumIcon: {
-            width: 100,
-            height: 100
-        },
-        medium: {
-            width: 110,
-            height: 110,
-            padding: 5
-        },
-        largeIcon: {
-            width: 120,
-            height: 120
-        },
-        large: {
-            width: 140,
-            height: 140,
-            padding: 10,
-            marginLeft: 12,
-            marginRight: 12
-        }
+    const updateStatus = async (e) => {
+        console.log(e);
+        console.log(user.attributes.name);
+        console.log(eventInstance.id);
+        const attendeeInput = {
+            status: e,
+            name: user.attributes["name"],
+            attendeeEventInstanceId: eventInstance.id
+        };
+        const attendeeData = await API.graphql(
+            graphqlOperation(createAttendee, { input: attendeeInput })
+        )
+            .then((data) => {
+                console.log(attendeeData);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     const isSmall = useMediaQuery("(max-width:320px)", { noSsr: true });
@@ -64,16 +55,31 @@ const Chooser = () => {
     return (
         <>
             <Typography variant="body1" gutterBottom>
-                <Prompt user={(user)} />
+                <Prompt user={user} />
             </Typography>
             <Grid container justify="center">
-                <IconButton style={styles[size]} >
-                    <CheckCircleIcon style={styles[size + "Icon"]} />
+                <IconButton
+                    style={styles[size]}
+                    name="in"
+                    disabled={!user ? true : false}
+                    onClick={() => updateStatus("in")}
+                >
+                    <CheckCircleIcon name="in" style={styles[size + "Icon"]} />
                 </IconButton>
-                <IconButton style={styles[size]} >
+                <IconButton
+                    style={styles[size]}
+                    name="maybe"
+                    disabled={!user ? true : false}
+                    onClick={() => updateStatus("maybe")}
+                >
                     <HelpIcon style={styles[size + "Icon"]} />
                 </IconButton>
-                <IconButton style={styles[size]} >
+                <IconButton
+                    style={styles[size]}
+                    name="out"
+                    disabled={!user ? true : false}
+                    onClick={() => updateStatus("out")}
+                >
                     <CancelIcon style={styles[size + "Icon"]} />
                 </IconButton>
             </Grid>
@@ -82,13 +88,17 @@ const Chooser = () => {
 };
 
 const Prompt = (props) => {
-    const {setLogin} = useContext(LoginContext);
+    const { setLogin } = useContext(LoginContext);
     if (props.user) {
         return <>Please Respond</>;
     }
     return (
         <>
-            Please <Link to="/login" onClick={() => setLogin(true)}>Login</Link> to respond
+            Please{" "}
+            <Link to="/login" onClick={() => setLogin(true)}>
+                Login
+            </Link>{" "}
+            to respond
         </>
     );
 };

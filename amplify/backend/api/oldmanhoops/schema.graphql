@@ -2,7 +2,7 @@ type Event
   @model
   @aws_iam
   @aws_cognito_user_pools
-  @auth(rules: [{ allow: public, provider: iam }]) {
+  @auth(rules: [{ allow: public, provider: iam, operations: [read] }]) {
   id: ID!
   name: String!
   defaultTime: AWSTime!
@@ -12,7 +12,7 @@ type EventInstance
   @model
   @aws_iam
   @aws_cognito_user_pools
-  @auth(rules: [{ allow: public, provider: iam }]) {
+  @auth(rules: [{ allow: public, provider: iam, operations: [read] }]) {
   id: ID!
   date: AWSDate!
   event: Event @connection(name: "EventInstances")
@@ -28,12 +28,13 @@ type Attendee
         allow: owner,
         operations: [create, update, delete, read]
       },
-      { allow: public, provider: iam }
+      { allow: public, provider: iam, operations: [read] }
     ]
   ) {
   id: ID!
   status: Status!
   eventInstance: EventInstance @connection(name: "EventInstanceAttendees")
+  name: String!
 }
 
 enum Status {

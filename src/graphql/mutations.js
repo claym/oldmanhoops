@@ -111,6 +111,7 @@ export const createAttendee = /* GraphQL */ `
     createAttendee(input: $input, condition: $condition) {
       id
       status
+      name
       eventInstance {
         id
         date
@@ -127,6 +128,7 @@ export const updateAttendee = /* GraphQL */ `
     updateAttendee(input: $input, condition: $condition) {
       id
       status
+      name
       eventInstance {
         id
         date
@@ -143,6 +145,7 @@ export const deleteAttendee = /* GraphQL */ `
     deleteAttendee(input: $input, condition: $condition) {
       id
       status
+      name
       eventInstance {
         id
         date
