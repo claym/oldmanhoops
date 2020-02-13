@@ -13,7 +13,8 @@ import { AuthContext } from './../user/AuthContext';
 const Event = () => {
     const user = useContext(AuthContext);
     const [eventInstance, setEventInstance] = useState(null);
-    const eventMemo = useMemo(() => ({ eventInstance, setEventInstance }), [eventInstance, setEventInstance]);
+    //const eventMemo = useMemo(() => ({ eventInstance, setEventInstance }), [eventInstance, setEventInstance]);
+    const eventMemo = useMemo(() => ({ eventInstance, setEventInstance, user }), [eventInstance, setEventInstance, user]);
     useEffect(() => {
         let authmode = "AWS_IAM"
         if(user) {

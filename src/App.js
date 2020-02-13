@@ -34,7 +34,7 @@ const App = () => {
         Hub.listen("auth", updateUser); // listen for login/signup events
         updateUser(); // check manually the first time because we won't get a Hub event
         return () => Hub.remove("auth", updateUser); // cleanup
-    }, []);
+    }, [login]);
 
     if (login) {
         return <Authenticator hide={[SignUp]} />;

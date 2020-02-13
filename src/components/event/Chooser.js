@@ -21,6 +21,7 @@ import { createAttendeeWithReturn } from "./eventMutations";
 
 const Chooser = () => {
     const user = useContext(AuthContext);
+    console.log("Chooser User ", user);
     const {eventInstance, setEventInstance} = useContext(EventInstanceContext);
     const { setLogin } = useContext(LoginContext);
     const [disabled, setDisabled] = useState(true);
@@ -41,6 +42,7 @@ const Chooser = () => {
                 setDisabled(false);
             }
         }
+        //console.log("Disabled: ", disabled);
     }, [user, eventInstance, attendee]);
 
     const updateStatus = async (e) => {
@@ -86,7 +88,7 @@ const Chooser = () => {
                     color="secondary"
                     onClick={() => updateStatus("in")}
                 >
-                    <CheckCircleIcon name="in" style={styles[size + "Icon"]} color={attendee?.status === "in" ? "secondary" : "inherit"}/>
+                    <CheckCircleIcon name="in" style={styles[size + "Icon"]} color={attendee?.status === "in" ? "primary" : "inherit"}/>
                 </IconButton>
                 <IconButton
                     style={styles[size]}
@@ -95,7 +97,7 @@ const Chooser = () => {
                     color="secondary"
                     onClick={() => updateStatus("maybe")}
                 >
-                    <HelpIcon style={styles[size + "Icon"]} />
+                    <HelpIcon style={styles[size + "Icon"]}  color={attendee?.status === "maybe" ? "secondary" : "inherit"}/>
                 </IconButton>
                 <IconButton
                     style={styles[size]}
@@ -104,7 +106,7 @@ const Chooser = () => {
                     color="secondary"
                     onClick={() => updateStatus("out")}
                 >
-                    <CancelIcon style={styles[size + "Icon"]} />
+                    <CancelIcon style={styles[size + "Icon"]}  color={attendee?.status === "out" ? "error" : "inherit"}/>
                 </IconButton>
             </Grid>
         </Grid>

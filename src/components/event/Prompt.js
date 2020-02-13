@@ -35,7 +35,7 @@ const Prompt = (props) => {
     return (
         <>
             Please{" "}
-            <Link href="#" onClick={() => props.setLogin(true)}>
+            <Link href="#" onClick={(event) => {event.preventDefault(); props.setLogin(true)}}>
                 Login
             </Link>{" "}
             to respond
