@@ -8,13 +8,13 @@ import IconButton from "@material-ui/core/IconButton";
 //import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Grid, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Link from "@material-ui/core/Link";
 
 import { API, graphqlOperation } from "aws-amplify";
 
 import { AuthContext } from "../user/AuthContext";
 import { LoginContext } from "./../user/LoginContext";
 
+import Prompt from "./Prompt";
 import styles from "./ChooserButtonStyles";
 import { EventInstanceContext } from "./EventInstanceContext";
 import { createAttendee } from "../../graphql/mutations";
@@ -22,25 +22,26 @@ import { createAttendee } from "../../graphql/mutations";
 const Chooser = () => {
     const user = useContext(AuthContext);
     const eventInstance = useContext(EventInstanceContext);
+    const { setLogin } = useContext(LoginContext);
     const [disabled, setDisabled] = useState(true);
+    const [attendee, setAttendee] = useState(null);
 
     useEffect(() => {
         if (!user) {
             setDisabled(true);
         } else {
-            console.log(eventInstance);
-            const exists = eventInstance.attendees.items.find((attendee) => {
+            let attendeeRecord = eventInstance.attendees.items.find((attendee) => {
                 return attendee.owner === user.username;
             });
-            console.log('exists: ', exists);
-            if (exists) {
+            setAttendee(attendeeRecord);            
+            console.log(eventInstance);
+            if (attendee) {
                 setDisabled(true);
             } else {
                 setDisabled(false);
             }
         }
-        console.log("disabled ", disabled);
-    }, [user, eventInstance, disabled]);
+    }, [user, eventInstance, attendee]);
 
     const updateStatus = async (e) => {
         console.log(e);
@@ -51,9 +52,7 @@ const Chooser = () => {
             name: user.attributes["name"],
             attendeeEventInstanceId: eventInstance.id
         };
-        API.graphql(
-            graphqlOperation(createAttendee, { input: attendeeInput })
-        )
+        API.graphql(graphqlOperation(createAttendee, { input: attendeeInput }))
             .then((data) => {
                 console.log(data);
             })
@@ -72,10 +71,12 @@ const Chooser = () => {
     }
 
     return (
-        <>
-            <Typography variant="body1" gutterBottom>
-                <Prompt user={user} />
-            </Typography>
+        <Grid container justify="center">
+            <Grid container justify="flex-end">
+            <Typography variant="body2">
+                    <Prompt user={user} attendee={attendee} setLogin={setLogin} />
+                </Typography>
+            </Grid>
             <Grid container justify="center">
                 <IconButton
                     style={styles[size]}
@@ -102,23 +103,7 @@ const Chooser = () => {
                     <CancelIcon style={styles[size + "Icon"]} />
                 </IconButton>
             </Grid>
-        </>
-    );
-};
-
-const Prompt = (props) => {
-    const { setLogin } = useContext(LoginContext);
-    if (props.user) {
-        return <>Please Respond</>;
-    }
-    return (
-        <>
-            Please{" "}
-            <Link to="/login" onClick={() => setLogin(true)}>
-                Login
-            </Link>{" "}
-            to respond
-        </>
+        </Grid>
     );
 };
 
