@@ -23,7 +23,7 @@ const Event = () => {
             {
                 query: listEventInstancesByDate, 
                 variables: {"date": moment().format('YYYY-MM-DD')},
-                authMode: "AWS_IAM"
+                authMode: "AMAZON_COGNITO_USER_POOLS"
             });
         //console.log('eventInstanceData: ', eventInstanceData);
         //setEvent(eventData.data.listEvents.items[0]);

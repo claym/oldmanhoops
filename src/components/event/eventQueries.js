@@ -13,6 +13,7 @@ query eventInstancesByDate($date: String!) {
           id
           name
           status
+          owner
         }
       }
     }

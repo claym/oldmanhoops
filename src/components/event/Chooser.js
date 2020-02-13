@@ -1,5 +1,5 @@
 import React from "react";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import HelpIcon from "@material-ui/icons/Help";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
@@ -22,6 +22,25 @@ import { createAttendee } from "../../graphql/mutations";
 const Chooser = () => {
     const user = useContext(AuthContext);
     const eventInstance = useContext(EventInstanceContext);
+    const [disabled, setDisabled] = useState(true);
+
+    useEffect(() => {
+        if (!user) {
+            setDisabled(true);
+        } else {
+            console.log(eventInstance);
+            const exists = eventInstance.attendees.items.find((attendee) => {
+                return attendee.owner === user.username;
+            });
+            console.log('exists: ', exists);
+            if (exists) {
+                setDisabled(true);
+            } else {
+                setDisabled(false);
+            }
+        }
+        console.log("disabled ", disabled);
+    }, [user, eventInstance, disabled]);
 
     const updateStatus = async (e) => {
         console.log(e);
@@ -32,11 +51,11 @@ const Chooser = () => {
             name: user.attributes["name"],
             attendeeEventInstanceId: eventInstance.id
         };
-        const attendeeData = await API.graphql(
+        API.graphql(
             graphqlOperation(createAttendee, { input: attendeeInput })
         )
             .then((data) => {
-                console.log(attendeeData);
+                console.log(data);
             })
             .catch((err) => {
                 console.log(err);
@@ -61,7 +80,7 @@ const Chooser = () => {
                 <IconButton
                     style={styles[size]}
                     name="in"
-                    disabled={!user ? true : false}
+                    disabled={disabled}
                     onClick={() => updateStatus("in")}
                 >
                     <CheckCircleIcon name="in" style={styles[size + "Icon"]} />
@@ -69,7 +88,7 @@ const Chooser = () => {
                 <IconButton
                     style={styles[size]}
                     name="maybe"
-                    disabled={!user ? true : false}
+                    disabled={disabled}
                     onClick={() => updateStatus("maybe")}
                 >
                     <HelpIcon style={styles[size + "Icon"]} />
@@ -77,7 +96,7 @@ const Chooser = () => {
                 <IconButton
                     style={styles[size]}
                     name="out"
-                    disabled={!user ? true : false}
+                    disabled={disabled}
                     onClick={() => updateStatus("out")}
                 >
                     <CancelIcon style={styles[size + "Icon"]} />
