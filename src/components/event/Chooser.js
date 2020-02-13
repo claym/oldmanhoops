@@ -17,11 +17,11 @@ import { LoginContext } from "./../user/LoginContext";
 import Prompt from "./Prompt";
 import styles from "./ChooserButtonStyles";
 import { EventInstanceContext } from "./EventInstanceContext";
-import { createAttendee } from "../../graphql/mutations";
+import { createAttendeeWithReturn } from "./eventMutations";
 
 const Chooser = () => {
     const user = useContext(AuthContext);
-    const {eventInstance} = useContext(EventInstanceContext);
+    const {eventInstance, setEventInstance} = useContext(EventInstanceContext);
     const { setLogin } = useContext(LoginContext);
     const [disabled, setDisabled] = useState(true);
     const [attendee, setAttendee] = useState(null);
@@ -52,12 +52,13 @@ const Chooser = () => {
             name: user.attributes["name"],
             attendeeEventInstanceId: eventInstance.id
         };
-        API.graphql(graphqlOperation(createAttendee, { input: attendeeInput }))
-            .then((data) => {
-                console.log(data);
+        API.graphql(graphqlOperation(createAttendeeWithReturn, { input: attendeeInput }))
+            .then((resp) => {
+                console.log(resp);
+                setEventInstance(resp.data.createAttendee.eventInstance)
             })
             .catch((err) => {
-                console.log(err);
+                console.log("Error Updating Status: ", err);
             });
     };
 
@@ -74,7 +75,7 @@ const Chooser = () => {
         <Grid container justify="center">
             <Grid container justify="flex-end">
             <Typography variant="body2">
-                    <Prompt user={user} attendee={attendee} setLogin={setLogin} />
+                    <Prompt user={user} attendee={attendee} setLogin={setLogin} setEventInstance={setEventInstance} />
                 </Typography>
             </Grid>
             <Grid container justify="center">

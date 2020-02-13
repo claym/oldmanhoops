@@ -1,15 +1,25 @@
 import React from "react";
 import Link from "@material-ui/core/Link";
-import { deleteAttendee } from "../../graphql/mutations";
+import { deleteAttendeeWithReturn } from "./eventMutations";
 import { API, graphqlOperation } from "aws-amplify";
 
 const Prompt = (props) => {
+    
     const handleChangeResponse = (event) => {
         event.preventDefault();
         const input = {
             id: props.attendee.id
         };
-        API.graphql(graphqlOperation(deleteAttendee, {input: input}));
+        API.graphql(
+            graphqlOperation(deleteAttendeeWithReturn, { input: input })
+        )
+            .then(resp => {
+                console.log(resp);
+                props.setEventInstance(resp.data.deleteAttendee.eventInstance)
+            })
+            .catch(err => {
+                console.log("Error Removing Attendee Record: ", err);
+            });
     };
 
     if (props.user && props.attendee) {
