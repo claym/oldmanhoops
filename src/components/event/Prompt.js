@@ -24,7 +24,7 @@ const Prompt = (props) => {
 
     if (props.user && props.attendee) {
         return (
-            <Link to="#" onClick={(e) => handleChangeResponse(e)}>
+            <Link href="#" onClick={(e) => handleChangeResponse(e)}>
                 Change Response
             </Link>
         );
@@ -35,7 +35,7 @@ const Prompt = (props) => {
     return (
         <>
             Please{" "}
-            <Link to="/login" onClick={() => props.setLogin(true)}>
+            <Link href="#" onClick={() => props.setLogin(true)}>
                 Login
             </Link>{" "}
             to respond

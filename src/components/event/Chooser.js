@@ -83,14 +83,16 @@ const Chooser = () => {
                     style={styles[size]}
                     name="in"
                     disabled={disabled}
+                    color="secondary"
                     onClick={() => updateStatus("in")}
                 >
-                    <CheckCircleIcon name="in" style={styles[size + "Icon"]} />
+                    <CheckCircleIcon name="in" style={styles[size + "Icon"]} color={attendee?.status === "in" ? "secondary" : "inherit"}/>
                 </IconButton>
                 <IconButton
                     style={styles[size]}
                     name="maybe"
                     disabled={disabled}
+                    color="secondary"
                     onClick={() => updateStatus("maybe")}
                 >
                     <HelpIcon style={styles[size + "Icon"]} />
@@ -99,6 +101,7 @@ const Chooser = () => {
                     style={styles[size]}
                     name="out"
                     disabled={disabled}
+                    color="secondary"
                     onClick={() => updateStatus("out")}
                 >
                     <CancelIcon style={styles[size + "Icon"]} />
