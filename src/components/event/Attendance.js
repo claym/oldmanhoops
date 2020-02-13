@@ -46,7 +46,7 @@ export default function FullWidthTabs() {
     //const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
-    const eventInstance = useContext(EventInstanceContext);
+    const {eventInstance} = useContext(EventInstanceContext);
     console.log(eventInstance);
 
     const handleChange = (event, newValue) => {

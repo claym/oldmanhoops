@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
 import { API } from 'aws-amplify'
 //import { getEvent as GetEvent } from './graphql/queries'
 //import { listEvents as ListEvents } from '../../graphql/queries'
@@ -12,8 +12,8 @@ import { AuthContext } from './../user/AuthContext';
 
 const Event = () => {
     const user = useContext(AuthContext);
-    const [event, setEvent] = useState(null);
-
+    const [eventInstance, setEventInstance] = useState(null);
+    const eventMemo = useMemo(() => ({ eventInstance, setEventInstance }), [eventInstance, setEventInstance]);
     useEffect(() => {
         let authmode = "AWS_IAM"
         if(user) {
@@ -31,18 +31,18 @@ const Event = () => {
                 variables: {"date": moment().format('YYYY-MM-DD')},
                 authMode: authmode
             }).then(eventInstanceData => {
-                setEvent(eventInstanceData.data.listEventInstances.items[0]);
+                setEventInstance(eventInstanceData.data.listEventInstances.items[0]);
             })
     }, [user])
 
-    if(!event) {
+    if(!eventInstance) {
         return (
             <div>Loading...</div>
         )
     }
 
     return (
-        <EventInstanceContext.Provider value={event}>
+        <EventInstanceContext.Provider value={eventMemo}>
             <div>
                 <EventInstance />
             </div>

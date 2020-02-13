@@ -21,7 +21,7 @@ import { createAttendee } from "../../graphql/mutations";
 
 const Chooser = () => {
     const user = useContext(AuthContext);
-    const eventInstance = useContext(EventInstanceContext);
+    const {eventInstance} = useContext(EventInstanceContext);
     const { setLogin } = useContext(LoginContext);
     const [disabled, setDisabled] = useState(true);
     const [attendee, setAttendee] = useState(null);

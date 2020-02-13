@@ -11,7 +11,7 @@ import { LoginContext } from "./components/user/LoginContext";
 
 const App = () => {
     let [login, setLogin] = useState(false);
-    const value = useMemo(() => ({ login, setLogin }), [login, setLogin]);
+    const loginMemo = useMemo(() => ({ login, setLogin }), [login, setLogin]);
     let [user, setUser] = useState(null);
     useEffect(() => {
         let updateUser = async (authState) => {
@@ -41,7 +41,7 @@ const App = () => {
     }
 
     return (
-        <LoginContext.Provider value={value}>
+        <LoginContext.Provider value={loginMemo}>
             <AuthContext.Provider value={user}>
                 <Home />
             </AuthContext.Provider>
