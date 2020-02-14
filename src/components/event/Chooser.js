@@ -30,6 +30,7 @@ const Chooser = () => {
     useEffect(() => {
         if (!user) {
             setDisabled(true);
+            setAttendee(null);
         } else {
             let attendeeRecord = eventInstance.attendees.items.find((attendee) => {
                 return attendee.owner === user.username;
