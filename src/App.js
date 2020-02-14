@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 
 import { Auth, Hub } from "aws-amplify";
 
@@ -11,7 +11,7 @@ import { LoginContext } from "./components/user/LoginContext";
 
 const App = () => {
     let [login, setLogin] = useState(false);
-    const loginMemo = useMemo(() => ({ login, setLogin }), [login, setLogin]);
+    // const loginMemo = useMemo(() => ({ login, setLogin }), [login, setLogin]);
     let [user, setUser] = useState(null);
     useEffect(() => {
         let updateUser = async (authState) => {
@@ -41,7 +41,7 @@ const App = () => {
     }
 
     return (
-        <LoginContext.Provider value={loginMemo}>
+        <LoginContext.Provider value={{login, setLogin}}>
             <AuthContext.Provider value={user}>
                 <Home />
             </AuthContext.Provider>
