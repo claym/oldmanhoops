@@ -1,15 +1,15 @@
 import React from "react";
 import { useContext, useState, useEffect } from "react";
+
 import HelpIcon from "@material-ui/icons/Help";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
-//import Button from '@material-ui/core/Button';
 import IconButton from "@material-ui/core/IconButton";
-//import ButtonGroup from '@material-ui/core/ButtonGroup';
 import { Grid, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-import { API, graphqlOperation } from "aws-amplify";
+import API from "@aws-amplify/core";
+import { graphqlOperation } from '@aws-amplify/api';
 
 import { AuthContext } from "../user/AuthContext";
 import { LoginContext } from "./../user/LoginContext";

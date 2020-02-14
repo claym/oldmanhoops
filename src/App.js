@@ -1,13 +1,15 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-import { Auth, Hub } from "aws-amplify";
+import { Hub } from '@aws-amplify/core';
+import Auth from '@aws-amplify/auth';
 
 import { Authenticator, SignUp } from "aws-amplify-react";
 
 import Home from "./Home";
 import { AuthContext } from "./components/user/AuthContext";
 import { LoginContext } from "./components/user/LoginContext";
+
 
 const App = () => {
     let [login, setLogin] = useState(false);

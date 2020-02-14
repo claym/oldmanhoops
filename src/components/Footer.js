@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
+
+import Auth from '@aws-amplify/auth';
+
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
 import { AuthContext } from "./user/AuthContext";
-import { useContext } from "react";
-import { Auth } from "aws-amplify";
 import { LoginContext } from "./user/LoginContext";
 
 export default () => {
