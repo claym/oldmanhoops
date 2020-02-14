@@ -39,5 +39,28 @@
                 "oldmanhoops": {}
             }
         }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-oldmanhoops-prod-192747-authRole",
+            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-prod-192747-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-prod-192747-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-oldmanhoops-prod-192747-deployment",
+            "UnauthRoleName": "amplify-oldmanhoops-prod-192747-unauthRole",
+            "StackName": "amplify-oldmanhoops-prod-192747",
+            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-prod-192747/d31864a0-4ec0-11ea-a899-0a0faac5843d",
+            "AmplifyAppId": "dl96eaajl0d2u"
+        },
+        "categories": {
+            "auth": {
+                "userPoolGroups": {},
+                "oldmanhoops": {}
+            },
+            "function": {
+                "AdminQueriese864b483": {},
+                "oldmanhoops": {}
+            }
+        }
     }
 }
