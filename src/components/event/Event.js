@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { API } from 'aws-amplify'
-//import { getEvent as GetEvent } from './graphql/queries'
-//import { listEvents as ListEvents } from '../../graphql/queries'
-//import { listEventInstances as ListEventInstances } from './graphql/queries';
+
+import API from '@aws-amplify/api'
+
+import moment from 'moment';
+
 import { listEventInstancesByDate } from './eventQueries'
 import { EventInstanceContext } from './EventInstanceContext';
 import EventInstance from './EventInstance';
-//import { Auth } from 'aws-amplify'
-import moment from 'moment';
 import { AuthContext } from './../user/AuthContext';
 
 const Event = () => {
