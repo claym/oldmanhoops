@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { Grid, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-import API from "@aws-amplify/core";
+import API from '@aws-amplify/api'
 import { graphqlOperation } from '@aws-amplify/api';
 
 import { AuthContext } from "../user/AuthContext";

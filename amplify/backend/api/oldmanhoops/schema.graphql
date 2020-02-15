@@ -5,6 +5,7 @@ type Event
     @auth(
         rules: [
             { allow: groups, groups: ["admins"] }
+            { allow: private, operations: [read] }
             { allow: public, provider: iam, operations: [read] }
         ]
     ) {
@@ -20,6 +21,7 @@ type EventInstance
     @auth(
         rules: [
             { allow: groups, groups: ["admins"] }
+            { allow: private, operations: [read] }
             { allow: public, provider: iam, operations: [read] }
         ]
     ) {
@@ -35,6 +37,7 @@ type Attendee
     @auth(
         rules: [
             { allow: owner, operations: [create, update, delete, read] }
+            { allow: private, operations: [read] }
             { allow: public, provider: iam, operations: [read] }
         ]
     ) {

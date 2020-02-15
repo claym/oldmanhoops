@@ -2,7 +2,8 @@ import React from "react";
 
 import Link from "@material-ui/core/Link";
 
-import API from "@aws-amplify/core";
+
+import API from '@aws-amplify/api'
 import { graphqlOperation } from '@aws-amplify/api';
 
 import { deleteAttendeeWithReturn } from "./eventMutations";
