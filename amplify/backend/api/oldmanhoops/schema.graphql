@@ -22,6 +22,7 @@ type EventInstance
         rules: [
             { allow: groups, groups: ["admins"] }
             { allow: private, operations: [read] }
+            { allow: private, provider: iam, operations: [create] }
             { allow: public, provider: iam, operations: [read] }
         ]
     ) {
