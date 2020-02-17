@@ -16,7 +16,6 @@ type Event
 }
 type EventInstance
     @model
-    @key(fields: ["id", "date"])
     @aws_iam
     @aws_cognito_user_pools
     @auth(

@@ -31,21 +31,11 @@ export const getEvent = /* GraphQL */ `
 `;
 export const listEventInstances = /* GraphQL */ `
   query ListEventInstances(
-    $id: ID
-    $date: ModelStringKeyConditionInput
     $filter: ModelEventInstanceFilterInput
     $limit: Int
     $nextToken: String
-    $sortDirection: ModelSortDirection
   ) {
-    listEventInstances(
-      id: $id
-      date: $date
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      sortDirection: $sortDirection
-    ) {
+    listEventInstances(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         date
@@ -55,8 +45,8 @@ export const listEventInstances = /* GraphQL */ `
   }
 `;
 export const getEventInstance = /* GraphQL */ `
-  query GetEventInstance($id: ID!, $date: AWSDate!) {
-    getEventInstance(id: $id, date: $date) {
+  query GetEventInstance($id: ID!) {
+    getEventInstance(id: $id) {
       id
       date
       event {

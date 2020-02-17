@@ -16,18 +16,16 @@ const region = process.env.REGION;
 const endpoint = new urlParse(appsyncUrl).hostname.toString();
 const graphqlQuery = require('./query.js').createEventInstance;
 const apiKey = process.env.API_KEY;
+const eventId = process.env.EVENT_ID;
 
 exports.handler = async (event) => {
-    console.log('event: ', event);
-    console.log('query: ', graphqlQuery)
-//    const appsyncUrl = event.GraphQLAPIEndpointOutput;
-//    const endpoint = new urlParse(appsyncUrl).hostname.toString();
+
     const date = new Date();
     const req = new AWS.HttpRequest(appsyncUrl, region);
     const eventInstance = {
         "input": {
             "date": date.toISOString().substring(0,10),
-            "eventInstanceEventId": event.eventId
+            "eventInstanceEventId": eventId
         }
     }
 
