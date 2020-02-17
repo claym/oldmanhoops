@@ -46,25 +46,6 @@ export const deleteEvent = /* GraphQL */ `
     }
   }
 `;
-export const createEventInstance = /* GraphQL */ `
-  mutation CreateEventInstance(
-    $input: CreateEventInstanceInput!
-    $condition: ModelEventInstanceConditionInput
-  ) {
-    createEventInstance(input: $input, condition: $condition) {
-      id
-      date
-      event {
-        id
-        name
-        defaultTime
-      }
-      attendees {
-        nextToken
-      }
-    }
-  }
-`;
 export const updateEventInstance = /* GraphQL */ `
   mutation UpdateEventInstance(
     $input: UpdateEventInstanceInput!
@@ -111,6 +92,7 @@ export const createAttendee = /* GraphQL */ `
     createAttendee(input: $input, condition: $condition) {
       id
       status
+      name
       eventInstance {
         id
         date
@@ -127,6 +109,7 @@ export const updateAttendee = /* GraphQL */ `
     updateAttendee(input: $input, condition: $condition) {
       id
       status
+      name
       eventInstance {
         id
         date
@@ -143,11 +126,31 @@ export const deleteAttendee = /* GraphQL */ `
     deleteAttendee(input: $input, condition: $condition) {
       id
       status
+      name
       eventInstance {
         id
         date
       }
       owner
+    }
+  }
+`;
+export const createEventInstance = /* GraphQL */ `
+  mutation CreateEventInstance(
+    $input: CreateEventInstanceInput!
+    $condition: ModelEventInstanceConditionInput
+  ) {
+    createEventInstance(input: $input, condition: $condition) {
+      id
+      date
+      event {
+        id
+        name
+        defaultTime
+      }
+      attendees {
+        nextToken
+      }
     }
   }
 `;

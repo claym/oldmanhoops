@@ -1,43 +1,55 @@
 type Event
-  @model
-  @aws_iam
-  @aws_cognito_user_pools
-  @auth(rules: [{ allow: public, provider: iam }]) {
-  id: ID!
-  name: String!
-  defaultTime: AWSTime!
-  instances: [EventInstance] @connection(name: "EventInstances")
+    @model
+    @aws_iam
+    @aws_cognito_user_pools
+    @auth(
+        rules: [
+            { allow: groups, groups: ["admins"] }
+            { allow: private, operations: [read] }
+            { allow: public, provider: iam, operations: [read] }
+        ]
+    ) {
+    id: ID!
+    name: String!
+    defaultTime: AWSTime!
+    instances: [EventInstance] @connection(name: "EventInstances")
 }
 type EventInstance
-  @model
-  @aws_iam
-  @aws_cognito_user_pools
-  @auth(rules: [{ allow: public, provider: iam }]) {
-  id: ID!
-  date: AWSDate!
-  event: Event @connection(name: "EventInstances")
-  attendees: [Attendee] @connection(name: "EventInstanceAttendees")
+    @model
+    @aws_iam
+    @aws_cognito_user_pools
+    @auth(
+        rules: [
+            { allow: groups, groups: ["admins"] }
+            { allow: private, operations: [read] }
+            { allow: private, provider: iam, operations: [create] }
+            { allow: public, provider: iam, operations: [read] }
+        ]
+    ) {
+    id: ID!
+    date: AWSDate!
+    event: Event @connection(name: "EventInstances")
+    attendees: [Attendee] @connection(name: "EventInstanceAttendees")
 }
 type Attendee
-  @model
-  @aws_iam
-  @aws_cognito_user_pools
-  @auth(
-    rules: [
-      {
-        allow: owner,
-        operations: [create, update, delete, read]
-      },
-      { allow: public, provider: iam }
-    ]
-  ) {
-  id: ID!
-  status: Status!
-  eventInstance: EventInstance @connection(name: "EventInstanceAttendees")
+    @model
+    @aws_iam
+    @aws_cognito_user_pools
+    @auth(
+        rules: [
+            { allow: owner, operations: [create, update, delete, read] }
+            { allow: private, operations: [read] }
+            { allow: public, provider: iam, operations: [read] }
+        ]
+    ) {
+    id: ID!
+    status: Status!
+    eventInstance: EventInstance @connection(name: "EventInstanceAttendees")
+    name: String!
 }
 
 enum Status {
-  in
-  out
-  maybe
+    in
+    out
+    maybe
 }

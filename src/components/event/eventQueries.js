@@ -8,6 +8,14 @@ query eventInstancesByDate($date: String!) {
         name
         defaultTime
       }
+      attendees {
+        items {
+          id
+          name
+          status
+          owner
+        }
+      }
     }
   }
 }

@@ -65,6 +65,7 @@ export const getAttendee = /* GraphQL */ `
     getAttendee(id: $id) {
       id
       status
+      name
       eventInstance {
         id
         date
@@ -83,6 +84,7 @@ export const listAttendees = /* GraphQL */ `
       items {
         id
         status
+        name
         owner
       }
       nextToken
