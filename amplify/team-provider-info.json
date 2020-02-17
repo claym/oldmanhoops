@@ -1,69 +1,23 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-oldmanhoops-dev-144013-authRole",
-            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-dev-144013-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-dev-144013-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-oldmanhoops-dev-144013-deployment",
-            "UnauthRoleName": "amplify-oldmanhoops-dev-144013-unauthRole",
-            "StackName": "amplify-oldmanhoops-dev-144013",
-            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-dev-144013/d378b360-4aaa-11ea-9efe-0ad9172a6ca8",
-            "AmplifyAppId": "dl96eaajl0d2u"
-        },
-        "categories": {
-            "auth": {
-                "oldmanhoops": {}
-            },
-            "function": {
-                "AdminQueriese864b483": {}
-            }
-        }
-    },
-    "test": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-oldmanhoops-test-183237-authRole",
-            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-test-183237-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-test-183237-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-oldmanhoops-test-183237-deployment",
-            "UnauthRoleName": "amplify-oldmanhoops-test-183237-unauthRole",
-            "StackName": "amplify-oldmanhoops-test-183237",
-            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-test-183237/1df0fb70-4eb9-11ea-bb62-0a36a8f29061",
-            "AmplifyAppId": "dl96eaajl0d2u"
-        },
-        "categories": {
-            "auth": {
-                "userPoolGroups": {},
-                "oldmanhoops": {}
-            },
-            "function": {
-                "AdminQueriese864b483": {},
-                "oldmanhoops": {}
-            }
-        }
-    },
-    "prod": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-oldmanhoops-prod-192747-authRole",
-            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-prod-192747-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-prod-192747-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-oldmanhoops-prod-192747-deployment",
-            "UnauthRoleName": "amplify-oldmanhoops-prod-192747-unauthRole",
-            "StackName": "amplify-oldmanhoops-prod-192747",
-            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-prod-192747/d31864a0-4ec0-11ea-a899-0a0faac5843d",
-            "AmplifyAppId": "dl96eaajl0d2u"
-        },
-        "categories": {
-            "auth": {
-                "userPoolGroups": {},
-                "oldmanhoops": {}
-            },
-            "function": {
-                "AdminQueriese864b483": {},
-                "oldmanhoops": {}
-            }
-        }
-    }
+	"dev": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-oldmanhoops-dev-144013-authRole",
+			"UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-dev-144013-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-dev-144013-authRole",
+			"Region": "us-east-1",
+			"DeploymentBucketName": "amplify-oldmanhoops-dev-144013-deployment",
+			"UnauthRoleName": "amplify-oldmanhoops-dev-144013-unauthRole",
+			"StackName": "amplify-oldmanhoops-dev-144013",
+			"StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-dev-144013/d378b360-4aaa-11ea-9efe-0ad9172a6ca8",
+			"AmplifyAppId": "dl96eaajl0d2u"
+		},
+		"categories": {
+			"auth": {
+				"oldmanhoops": {}
+			},
+			"function": {
+				"AdminQueriese864b483": {}
+			}
+		}
+	}
 }
