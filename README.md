@@ -1,68 +1,34 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React/Amplify webapp for OldManHoops.net
 
-## Available Scripts
+**What it does**: Creates a reoccuring event, allowing invited people to state if they are In, Out, or Maybe via web interface.
 
-In the project directory, you can run:
+**How it works**: Create-React-App, built on top of AWS Amplify. Utilizes AppSync for database, Cognito for users, lambda for scheduled events.
 
-### `yarn start`
+**How to set it up:**
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. git clone https://github.com/claym/oldmanhoops
+2. cd oldmanhoops
+3. amplify init
+4. amplify push
+5. Create a user account in aws cognito
+6. Add yourself to the admin user pool.
+7. Go log in to the app, appsync login won't let you change the password there. 
+8. Grab the Cognito > App clients > App client id > the one with clientWeb
+8. Go to your AppSync backend. Log in via User Pools. Run
+    1. (update name/defaultTime as you see fit)
+    2. Run the following. It will return an event id. Copy this, you'll need it for step 9.
+            
+            mutation createEvent {
+            createEvent(input: {name: "CAC Lunch Hoops", defaultTime: "12:00:00-05:00"})
+            }               
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+9. Go to your amplify console. Click the env you're working on, > Functions > EventInstanceCreate-<env> 
+    1. Add an environment variable named "EVENT_ID" and set it to the event id generated when you created the event in AppSync
+    2. Create a cloudwatch scheduled task to generate it week-daily. Remember to account for UTC (EST is -5)!
+    3. You may want to run a test on it so it will create a event for today and you can verify the frontend
 
-### `yarn test`
+**Thanks**
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Thanks to [@FullStackPho](https://twitter.com/fullstackpho) who's [Medium article](https://medium.com/@fullstackpho/aws-amplify-multi-auth-graphql-public-read-and-authenticated-create-update-delete-1bf5443b0ad1) helped me figure out how to do queries for non-authenticated people
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Also to @eliasericsson and @dantasfiles in the Amplify Gitter for making good suggestions.

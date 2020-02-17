@@ -37,22 +37,6 @@ export const onDeleteEvent = /* GraphQL */ `
     }
   }
 `;
-export const onCreateEventInstance = /* GraphQL */ `
-  subscription OnCreateEventInstance {
-    onCreateEventInstance {
-      id
-      date
-      event {
-        id
-        name
-        defaultTime
-      }
-      attendees {
-        nextToken
-      }
-    }
-  }
-`;
 export const onUpdateEventInstance = /* GraphQL */ `
   subscription OnUpdateEventInstance {
     onUpdateEventInstance {
@@ -124,6 +108,22 @@ export const onDeleteAttendee = /* GraphQL */ `
         date
       }
       owner
+    }
+  }
+`;
+export const onCreateEventInstance = /* GraphQL */ `
+  subscription OnCreateEventInstance {
+    onCreateEventInstance {
+      id
+      date
+      event {
+        id
+        name
+        defaultTime
+      }
+      attendees {
+        nextToken
+      }
     }
   }
 `;

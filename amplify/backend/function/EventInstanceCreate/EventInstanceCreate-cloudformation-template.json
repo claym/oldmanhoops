@@ -5,9 +5,13 @@
 		"env": {
 			"Type": "String"
 		},
-		"autholdmanhoopsUserPoolId": {
+		"apioldmanhoopsGraphQLAPIIdOutput": {
 			"Type": "String",
-			"Default": "autholdmanhoopsUserPoolId"
+			"Default": "apioldmanhoopsGraphQLAPIIdOutput"
+		},
+		"apioldmanhoopsGraphQLAPIEndpointOutput": {
+			"Type": "String",
+			"Default": "apioldmanhoopsGraphQLAPIEndpointOutput"
 		}
 	},
 	"Conditions": {
@@ -32,12 +36,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"AdminQueriese864b483",
+						"EventInstanceCreate",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"AdminQueriese864b483",
+									"EventInstanceCreate",
 									"-",
 									{
 										"Ref": "env"
@@ -52,9 +56,14 @@
 						"ENV": {
 							"Ref": "env"
 						},
-						"GROUP": "admins",
-						"USERPOOL": {
-							"Ref": "autholdmanhoopsUserPoolId"
+						"REGION": {
+							"Ref": "AWS::Region"
+						},
+						"API_OLDMANHOOPS_GRAPHQLAPIIDOUTPUT": {
+							"Ref": "apioldmanhoopsGraphQLAPIIdOutput"
+						},
+						"API_OLDMANHOOPS_GRAPHQLAPIENDPOINTOUTPUT": {
+							"Ref": "apioldmanhoopsGraphQLAPIEndpointOutput"
 						}
 					}
 				},
@@ -68,7 +77,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-oldmanhoops-develop-123640-deployment",
-					"S3Key": "amplify-builds/AdminQueriese864b483-5046357853325a325a2f-build.zip"
+					"S3Key": "amplify-builds/EventInstanceCreate-2f446c4641697248362b-build.zip"
 				}
 			}
 		},
@@ -78,12 +87,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"AdminQueriese864b483LambdaRole",
+						"oldmanhoopsLambdaRole6f67d071",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"AdminQueriese864b483LambdaRole",
+									"oldmanhoopsLambdaRole6f67d071",
 									"-",
 									{
 										"Ref": "env"
@@ -149,40 +158,55 @@
 									}
 								]
 							}
-						},
+						}
+					]
+				}
+			}
+		},
+		"AmplifyResourcesPolicy": {
+			"DependsOn": [
+				"LambdaExecutionRole"
+			],
+			"Type": "AWS::IAM::Policy",
+			"Properties": {
+				"PolicyName": "amplify-lambda-execution-policy",
+				"Roles": [
+					{
+						"Ref": "LambdaExecutionRole"
+					}
+				],
+				"PolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
 						{
 							"Effect": "Allow",
 							"Action": [
-								"cognito-idp:ListUsersInGroup",
-								"cognito-idp:AdminUserGlobalSignOut",
-								"cognito-idp:AdminEnableUser",
-								"cognito-idp:AdminDisableUser",
-								"cognito-idp:AdminRemoveUserFromGroup",
-								"cognito-idp:AdminAddUserToGroup",
-								"cognito-idp:AdminListGroupsForUser",
-								"cognito-idp:AdminGetUser",
-								"cognito-idp:AdminConfirmSignUp",
-								"cognito-idp:ListUsers"
+								"appsync:Create*",
+								"appsync:StartSchemaCreation",
+								"appsync:GraphQL"
 							],
-							"Resource": {
-								"Fn::Join": [
-									"",
-									[
-										"arn:aws:cognito-idp:",
-										{
-											"Ref": "AWS::Region"
-										},
-										":",
-										{
-											"Ref": "AWS::AccountId"
-										},
-										":userpool/",
-										{
-											"Ref": "autholdmanhoopsUserPoolId"
-										}
+							"Resource": [
+								{
+									"Fn::Join": [
+										"",
+										[
+											"arn:aws:appsync:",
+											{
+												"Ref": "AWS::Region"
+											},
+											":",
+											{
+												"Ref": "AWS::AccountId"
+											},
+											":apis/",
+											{
+												"Ref": "apioldmanhoopsGraphQLAPIIdOutput"
+											},
+											"/*"
+										]
 									]
-								]
-							}
+								}
+							]
 						}
 					]
 				}
