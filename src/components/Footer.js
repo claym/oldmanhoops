@@ -12,7 +12,7 @@ export default () => {
 
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            <Link href="mailto:clay@pfd.net">Need Help?</Link> {"Copyright © "}
+            <Link href="mailto:help@oldmanhoops.net">Need Help?</Link> {"Copyright © "}
             <Link color="inherit" href="https://oldmanhoops.net/">
                 Old Man Hoops
             </Link>{" "}

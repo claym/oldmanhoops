@@ -20,16 +20,16 @@
             }
         }
     },
-    "test": {
+    "develop": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-oldmanhoops-test-95701-authRole",
-            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-test-95701-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-test-95701-authRole",
+            "AuthRoleName": "amplify-oldmanhoops-develop-123640-authRole",
+            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-develop-123640-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-develop-123640-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-oldmanhoops-test-95701-deployment",
-            "UnauthRoleName": "amplify-oldmanhoops-test-95701-unauthRole",
-            "StackName": "amplify-oldmanhoops-test-95701",
-            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-test-95701/c06dcde0-5195-11ea-af3b-0e46d57ace87",
+            "DeploymentBucketName": "amplify-oldmanhoops-develop-123640-deployment",
+            "UnauthRoleName": "amplify-oldmanhoops-develop-123640-unauthRole",
+            "StackName": "amplify-oldmanhoops-develop-123640",
+            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-develop-123640/0dd3f1c0-51ac-11ea-8673-12193276ecaf",
             "AmplifyAppId": "dl96eaajl0d2u"
         },
         "categories": {
@@ -44,16 +44,40 @@
             }
         }
     },
-    "develop": {
+    "test": {
         "awscloudformation": {
-            "AuthRoleName": "amplify-oldmanhoops-develop-123640-authRole",
-            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-develop-123640-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-develop-123640-authRole",
+            "AuthRoleName": "amplify-oldmanhoops-test-163935-authRole",
+            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-test-163935-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-test-163935-authRole",
             "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-oldmanhoops-develop-123640-deployment",
-            "UnauthRoleName": "amplify-oldmanhoops-develop-123640-unauthRole",
-            "StackName": "amplify-oldmanhoops-develop-123640",
-            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-develop-123640/0dd3f1c0-51ac-11ea-8673-12193276ecaf",
+            "DeploymentBucketName": "amplify-oldmanhoops-test-163935-deployment",
+            "UnauthRoleName": "amplify-oldmanhoops-test-163935-unauthRole",
+            "StackName": "amplify-oldmanhoops-test-163935",
+            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-test-163935/fd3adbe0-51cd-11ea-ab35-0e8805686543",
+            "AmplifyAppId": "dl96eaajl0d2u"
+        },
+        "categories": {
+            "auth": {
+                "userPoolGroups": {},
+                "oldmanhoops": {}
+            },
+            "function": {
+                "AdminQueriese864b483": {},
+                "EventInstanceCreate": {},
+                "oldmanhoops": {}
+            }
+        }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-oldmanhoops-prod-170250-authRole",
+            "UnauthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-prod-170250-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::328196703648:role/amplify-oldmanhoops-prod-170250-authRole",
+            "Region": "us-east-1",
+            "DeploymentBucketName": "amplify-oldmanhoops-prod-170250-deployment",
+            "UnauthRoleName": "amplify-oldmanhoops-prod-170250-unauthRole",
+            "StackName": "amplify-oldmanhoops-prod-170250",
+            "StackId": "arn:aws:cloudformation:us-east-1:328196703648:stack/amplify-oldmanhoops-prod-170250/3cb808d0-51d1-11ea-8522-0a726edfb5e3",
             "AmplifyAppId": "dl96eaajl0d2u"
         },
         "categories": {
