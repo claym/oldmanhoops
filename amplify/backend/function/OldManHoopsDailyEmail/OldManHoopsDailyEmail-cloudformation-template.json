@@ -4,14 +4,6 @@
 	"Parameters": {
 		"env": {
 			"Type": "String"
-		},
-		"apioldmanhoopsGraphQLAPIIdOutput": {
-			"Type": "String",
-			"Default": "apioldmanhoopsGraphQLAPIIdOutput"
-		},
-		"apioldmanhoopsGraphQLAPIEndpointOutput": {
-			"Type": "String",
-			"Default": "apioldmanhoopsGraphQLAPIEndpointOutput"
 		}
 	},
 	"Conditions": {
@@ -36,12 +28,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"EventInstanceCreate",
+						"OldManHoopsDailyEmail",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"EventInstanceCreate",
+									"OldManHoopsDailyEmail",
 									"-",
 									{
 										"Ref": "env"
@@ -58,12 +50,6 @@
 						},
 						"REGION": {
 							"Ref": "AWS::Region"
-						},
-						"API_OLDMANHOOPS_GRAPHQLAPIIDOUTPUT": {
-							"Ref": "apioldmanhoopsGraphQLAPIIdOutput"
-						},
-						"API_OLDMANHOOPS_GRAPHQLAPIENDPOINTOUTPUT": {
-							"Ref": "apioldmanhoopsGraphQLAPIEndpointOutput"
 						}
 					}
 				},
@@ -77,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-oldmanhoops-prod-170250-deployment",
-					"S3Key": "amplify-builds/EventInstanceCreate-2f446c4641697248362b-build.zip"
+					"S3Key": "amplify-builds/OldManHoopsDailyEmail-41643545744f5a654234-build.zip"
 				}
 			}
 		},
@@ -87,12 +73,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"oldmanhoopsLambdaRole6f67d071",
+						"oldmanhoopsLambdaRole9267c5c8",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"oldmanhoopsLambdaRole6f67d071",
+									"oldmanhoopsLambdaRole9267c5c8",
 									"-",
 									{
 										"Ref": "env"
@@ -158,55 +144,6 @@
 									}
 								]
 							}
-						}
-					]
-				}
-			}
-		},
-		"AmplifyResourcesPolicy": {
-			"DependsOn": [
-				"LambdaExecutionRole"
-			],
-			"Type": "AWS::IAM::Policy",
-			"Properties": {
-				"PolicyName": "amplify-lambda-execution-policy",
-				"Roles": [
-					{
-						"Ref": "LambdaExecutionRole"
-					}
-				],
-				"PolicyDocument": {
-					"Version": "2012-10-17",
-					"Statement": [
-						{
-							"Effect": "Allow",
-							"Action": [
-								"appsync:Create*",
-								"appsync:StartSchemaCreation",
-								"appsync:GraphQL"
-							],
-							"Resource": [
-								{
-									"Fn::Join": [
-										"",
-										[
-											"arn:aws:appsync:",
-											{
-												"Ref": "AWS::Region"
-											},
-											":",
-											{
-												"Ref": "AWS::AccountId"
-											},
-											":apis/",
-											{
-												"Ref": "apioldmanhoopsGraphQLAPIIdOutput"
-											},
-											"/*"
-										]
-									]
-								}
-							]
 						}
 					]
 				}
