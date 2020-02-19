@@ -11,62 +11,38 @@ var region = process.env.REGION;
 var userPoolId = process.env.USER_POOL_ID;
 var clientId = process.env.CLIENT_ID;
 var userGroupName = process.env.USER_GROUP_NAME;
+var siteUrl = process.env.SITE_URL;
+var emailSubject = process.env.EMAIL_SUBJECT
 
 AWS.config.setPromisesDependency(null);
 const cognitoClient = new AWS.CognitoIdentityServiceProvider({
     region: region
 });
-const sesClient = new AWS.SES({region: region});
+const sesClient = new AWS.SES({ region: region });
 exports.handler = async (event) => {
     var poolData = {
         GroupName: userGroupName, // your user pool id here
         UserPoolId: userPoolId // your client id here
     };
 
-    console.log(poolData);
+    //console.log(poolData);
 
     let promise = cognitoClient.listUsersInGroup(poolData).promise();
 
     await promise
         .then((data) => {
-            //console.log('Data.Users');
-            //console.log(data.Users);
-            
-            let addresses = data.Users.map((user) => {
+            let promises = data.Users.map((user) => {
                 //user.Attributes.map(attr => {console.log(attr.Name)})
                 let email = user.Attributes.find(
                     (attr) => attr.Name === "email"
                 );
-                //console.log(email.Value);
-                return email.Value;
-                
+                let ep = emailPromise(email.Value);
+                return ep;
             });
-            return addresses;
-        }).then(addresses => {
-            var params = {
-                Destination: {
-                    ToAddresses: addresses
-                },
-                Message: {
-                    Body: {
-                        Text: { Data: "Test"
-                            
-                        }
-                        
-                    },
-                    
-                    Subject: { Data: "Test Email"
-                        
-                    }
-                },
-                Source: "help@oldmanhoops.net"
-            };
-            console.log('email params');
-            console.log(params);
-            return sesClient.sendEmail(params).promise();
-            
-        }).then(data => {
-            console.log("Sent Email: ", data);
+            return promises;
+        })
+        .then((promises) => {
+            return Promise.all(promises);
         })
         .catch((err) => {
             console.log("Error...");
@@ -75,9 +51,37 @@ exports.handler = async (event) => {
         });
     //console.log(userResp);
     // TODO implement
-    const response = {
-        statusCode: 200,
-        body: JSON.stringify("Hello from Lambda!")
+    // const response = {
+    //     statusCode: 200,
+    //     body: JSON.stringify("Hello from Lambda!")
+    // };
+    // return response;
+    return;
+};
+
+const emailPromise = async (address) => {
+    var date = new Date();
+    var params = {
+        Destination: {
+            ToAddresses: [address]
+        },
+        Message: {
+            Body: {
+                Text: { Data: `
+                Please log your status for today's event @ ${siteUrl}
+                
+                If you want to be removed from this reminder, please reply.
+
+                Thanks
+                -Clay
+                ` }
+            },
+
+            Subject: { Data: `${emailSubject} (${date.toISOString().substring(0,10)})` }
+        },
+        Source: "Old Man Hoops <help@oldmanhoops.net>"
     };
-    return response;
+
+    let promise = sesClient.sendEmail(params).promise();
+    return promise;
 };
