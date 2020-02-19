@@ -62,8 +62,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-oldmanhoops-develop-123640-deployment",
-					"S3Key": "amplify-builds/OldManHoopsDailyEmail-6d7452733075695a504e-build.zip"
+					"S3Bucket": "amplify-oldmanhoops-prod-170250-deployment",
+					"S3Key": "amplify-builds/OldManHoopsDailyEmail-41643545744f5a654234-build.zip"
 				}
 			}
 		},
