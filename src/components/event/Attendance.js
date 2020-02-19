@@ -11,29 +11,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { EventInstanceContext } from './EventInstanceContext';
+import { AuthContext } from "../user/AuthContext";
 
-function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <Typography
-            component="div"
-            role="tabpanel"
-            hidden={value !== index}
-            id={`full-width-tabpanel-${index}`}
-            aria-labelledby={`full-width-tab-${index}`}
-            {...other}
-        >
-            {value === index && <Box p={3}>{children}</Box>}
-        </Typography>
-    );
-}
-
-TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.any.isRequired,
-    value: PropTypes.any.isRequired
-};
 
 function a11yProps(index) {
     return {
@@ -42,7 +21,8 @@ function a11yProps(index) {
     };
 }
 
-export default function FullWidthTabs() {
+export default function Attendance() {
+    const user = useContext(AuthContext);
     //const classes = useStyles();
     const theme = useTheme();
     const [value, setValue] = React.useState(0);
@@ -68,7 +48,7 @@ export default function FullWidthTabs() {
     const mayAttendees = eventInstance.attendees.items.filter(
         (attendee) => attendee.status === "maybe"
     );
-
+    // TODO: Update auth model to actually hide the players, don't be lazy and do it on the FE
     return (
         <Grid container justify="flex-start">
             <AppBar position="static" color="default">
@@ -86,28 +66,26 @@ export default function FullWidthTabs() {
             </AppBar>
 
             <TabPanel value={value} index={0} dir={theme.direction}>
-                <List component="nav" aria-label="secondary mailbox folders">
-                    {inAttendees.map((attendee) => (
-                        <AttendeeListItem key={attendee.id} attendee={attendee} />
-                    ))}
-                </List>
+                { user ? <AttendeeList attendees={inAttendees}/> : "Please login to see who's playing."}
             </TabPanel>
             <TabPanel value={value} index={1} dir={theme.direction}>
-                <List component="nav" aria-label="secondary mailbox folders">
-                    {mayAttendees.map((attendee) => (
-                        <AttendeeListItem key={attendee.id} attendee={attendee} />
-                    ))}
-                </List>
+                { user ? <AttendeeList attendees={mayAttendees}/> : "Please login to see who's playing."}    
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
-                <List component="nav" aria-label="secondary mailbox folders">
-                    {outAttendees.map((attendee) => (
-                        <AttendeeListItem key={attendee.id} attendee={attendee} />
-                    ))}
-                </List>
+                { user ? <AttendeeList attendees={outAttendees}/> : "Please login to see who's playing."}
             </TabPanel>
         </Grid>
     );
+}
+
+const AttendeeList = (props) => {
+    return (
+        <List component="nav" aria-label="secondary mailbox folders">
+        {props.attendees.map((attendee) => (
+            <AttendeeListItem key={attendee.id} attendee={attendee} />
+        ))}
+    </List>
+    )
 }
 
 const AttendeeListItem = (props) => {
@@ -118,4 +96,27 @@ const AttendeeListItem = (props) => {
             />
         </ListItem>
     );
+};
+
+const TabPanel = (props) => {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <Typography
+            component="div"
+            role="tabpanel"
+            hidden={value !== index}
+            id={`full-width-tabpanel-${index}`}
+            aria-labelledby={`full-width-tab-${index}`}
+            {...other}
+        >
+            {value === index && <Box p={3}>{children}</Box>}
+        </Typography>
+    );
+}
+
+TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired
 };
