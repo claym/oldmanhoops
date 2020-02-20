@@ -2,8 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 
 import API from '@aws-amplify/api'
 
-import moment from 'moment';
-
 import { listEventInstancesByDate } from './eventQueries'
 import { EventInstanceContext } from './EventInstanceContext';
 import EventInstance from './EventInstance';
@@ -21,7 +19,7 @@ const Event = () => {
         API.graphql(
             {
                 query: listEventInstancesByDate, 
-                variables: {"date": moment().format('YYYY-MM-DD')},
+                variables: {"date": new Date().toISOString().substring(0,10)},
                 authMode: authmode
             }).then(eventInstanceData => {
                 console.log("Event Loadded")

@@ -40,7 +40,8 @@
             "function": {
                 "AdminQueriese864b483": {},
                 "EventInstanceCreate": {},
-                "oldmanhoops": {}
+                "oldmanhoops": {},
+                "OldManHoopsDailyEmail": {}
             }
         }
     },
