@@ -4,8 +4,6 @@ import { useEffect, useState } from "react";
 import { Hub } from '@aws-amplify/core';
 import Auth from '@aws-amplify/auth';
 
-import { Authenticator, SignUp } from "aws-amplify-react";
-
 import Home, {AuthenticatedHome} from "./Home";
 import { AuthContext } from "./components/user/AuthContext";
 import { LoginContext } from "./components/user/LoginContext";
