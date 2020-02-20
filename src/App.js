@@ -6,28 +6,26 @@ import Auth from '@aws-amplify/auth';
 
 import { Authenticator, SignUp } from "aws-amplify-react";
 
-import Home from "./Home";
+import Home, {AuthenticatedHome} from "./Home";
 import { AuthContext } from "./components/user/AuthContext";
 import { LoginContext } from "./components/user/LoginContext";
 
 
 const App = () => {
     let [login, setLogin] = useState(false);
-    // const loginMemo = useMemo(() => ({ login, setLogin }), [login, setLogin]);
     let [user, setUser] = useState(null);
     useEffect(() => {
         let updateUser = async (authState) => {
             console.log("AuthState: ", authState);
 
+            if (authState?.payload?.event === "signOut") {
+                setLogin(false);
+            }
+
             Auth.currentAuthenticatedUser()
                 .then((currentUser) => {
                     setUser(currentUser);
                     console.log("CurrentUser: ", currentUser);
-                })
-                .then(() => {
-                    if (authState?.payload?.event === "signIn") {
-                        setLogin(false);
-                    }
                 })
                 .catch((err) => {
                     setUser(null);
@@ -36,16 +34,14 @@ const App = () => {
         Hub.listen("auth", updateUser); // listen for login/signup events
         updateUser(); // check manually the first time because we won't get a Hub event
         return () => Hub.remove("auth", updateUser); // cleanup
-    }, [login]);
+    }, []);
 
-    if (login) {
-        return <Authenticator hide={[SignUp]} />;
-    }
 
+    console.log('login: ', login);
     return (
         <LoginContext.Provider value={{login, setLogin}}>
             <AuthContext.Provider value={user}>
-                <Home />
+                { user || login ? <AuthenticatedHome/> : <Home /> }
             </AuthContext.Provider>
         </LoginContext.Provider>
     );
