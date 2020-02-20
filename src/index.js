@@ -7,7 +7,7 @@ import App from './App';
 import theme from './theme';
 import * as serviceWorker from './serviceWorker';
 
-import Amplify from 'aws-amplify'
+import Amplify from '@aws-amplify/core'
 import config from './aws-exports'
 
 Amplify.configure(config)
