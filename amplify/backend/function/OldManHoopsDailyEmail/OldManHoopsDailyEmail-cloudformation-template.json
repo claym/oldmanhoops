@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-oldmanhoops-dev-180720-deployment",
-					"S3Key": "amplify-builds/OldManHoopsDailyEmail-4958584d50657934792f-build.zip"
+					"S3Key": "amplify-builds/OldManHoopsDailyEmail-694c2f684b6565453951-build.zip"
 				}
 			}
 		},
