@@ -13,6 +13,7 @@ var clientId = process.env.CLIENT_ID;
 var userGroupName = process.env.USER_GROUP_NAME;
 var siteUrl = process.env.SITE_URL;
 var emailSubject = process.env.EMAIL_SUBJECT
+var emailSender = process.env.EMAIL_SENDER
 
 AWS.config.setPromisesDependency(null);
 const cognitoClient = new AWS.CognitoIdentityServiceProvider({
@@ -79,7 +80,7 @@ const emailPromise = async (address) => {
 
             Subject: { Data: `${emailSubject} (${date.toISOString().substring(0,10)})` }
         },
-        Source: "Old Man Hoops <help@oldmanhoops.net>"
+        Source: emailSender
     };
 
     let promise = sesClient.sendEmail(params).promise();
