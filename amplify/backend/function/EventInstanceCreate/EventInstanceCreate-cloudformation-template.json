@@ -76,8 +76,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-oldmanhoops-dev-180720-deployment",
-					"S3Key": "amplify-builds/EventInstanceCreate-2f446c4641697248362b-build.zip"
+					"S3Bucket": "amplify-oldmanhoops-dev-220658-deployment",
+					"S3Key": "amplify-builds/EventInstanceCreate-6f4f6e55507650584747-build.zip"
 				}
 			}
 		},
