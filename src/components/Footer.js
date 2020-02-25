@@ -4,6 +4,7 @@ import Auth from '@aws-amplify/auth';
 
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
+import GitHubIcon from '@material-ui/icons/GitHub';
 import { AuthContext } from "./user/AuthContext";
 import { LoginContext } from "./user/LoginContext";
 
@@ -12,14 +13,19 @@ export default () => {
 
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            <Link href="mailto:help@oldmanhoops.net">Need Help?</Link> {"Copyright © "}
-            <Link color="inherit" href="https://oldmanhoops.net/">
-                Old Man Hoops
+            <Link href="mailto:oldmanhoops@oldmanhoops.net">Need Help?</Link> {"Copyright © "}
+            <Link color="inherit" href="mailto:clay@pfd.net">
+                Clay Mitchell
             </Link>{" "}
             {new Date().getFullYear()}
             {". "}
             <LoginLogout user={user} />
             {"."}
+            <hr style={{width: "50%"}}/>
+            <Link href="https://github.com/claym/oldmanhoops" target="_new">
+                <GitHubIcon color="primary" />
+            </Link>
+
         </Typography>
     );
 };
