@@ -12,9 +12,9 @@ export default () => {
 
     return (
         <Typography variant="body2" color="textSecondary" align="center">
-            <Link href="mailto:help@oldmanhoops.net">Need Help?</Link> {"Copyright © "}
-            <Link color="inherit" href="https://oldmanhoops.net/">
-                Old Man Hoops
+            <Link href="mailto:oldmanhoops@oldmanhoops.net">Need Help?</Link> {"Copyright © "}
+            <Link color="inherit" href="mailto:clay@pfd.net">
+                Clay Mitchell
             </Link>{" "}
             {new Date().getFullYear()}
             {". "}
