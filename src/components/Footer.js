@@ -4,6 +4,7 @@ import Auth from '@aws-amplify/auth';
 
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
+import GitHubIcon from '@material-ui/icons/GitHub';
 import { AuthContext } from "./user/AuthContext";
 import { LoginContext } from "./user/LoginContext";
 
@@ -20,6 +21,11 @@ export default () => {
             {". "}
             <LoginLogout user={user} />
             {"."}
+            <hr style={{width: "50%"}}/>
+            <Link href="https://github.com/claym/oldmanhoops" target="_new">
+                <GitHubIcon color="primary" />
+            </Link>
+
         </Typography>
     );
 };
