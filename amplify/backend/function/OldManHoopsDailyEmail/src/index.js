@@ -68,13 +68,13 @@ const emailPromise = async (address) => {
         },
         Message: {
             Body: {
-                Text: { Data: `
-                Please log your status for today's event @ ${siteUrl}
-                
+                Html: { Data: `
+                Good morning!<br/><br/>
+                Please log your status for today's (${date.toISOString().substring(0,10)}) Pickup Basketball event @ <a href="${siteUrl}">${siteUrl}</a>
+                <br/><br/>
                 If you want to be removed from this reminder, please reply.
-
+                <br/><br/>
                 Thanks
-                -Clay
                 ` }
             },
 
