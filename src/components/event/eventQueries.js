@@ -8,7 +8,7 @@ query eventInstancesByDate($date: String!) {
         name
         defaultTime
       }
-      attendees {
+      attendees (limit:100) {
         items {
           id
           name
