@@ -73,7 +73,6 @@ const Chooser = () => {
     } else if (isMedium) {
         size = "medium";
     }
-
     return (
         <Grid container justify="center">
             <Grid container justify="flex-end">

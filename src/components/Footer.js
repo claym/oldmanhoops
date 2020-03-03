@@ -21,7 +21,7 @@ export default () => {
             {". "}
             <LoginLogout user={user} />
             {"."}
-            <hr style={{width: "50%"}}/>
+            <br/>
             <Link href="https://github.com/claym/oldmanhoops" target="_new">
                 <GitHubIcon color="primary" />
             </Link>
