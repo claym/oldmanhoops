@@ -8,20 +8,24 @@ import EventInstance from "./EventInstance";
 import { AuthContext } from "./../user/AuthContext";
 import { Grid, Typography } from "@material-ui/core";
 import { format, parseISO } from 'date-fns'
+import { useQueryParam, StringParam } from 'use-query-params';
 import logo from "../../images/omh.svg";
 
 const Event = () => {
     const user = useContext(AuthContext);
     const [eventInstance, setEventInstance] = useState(null);
 
+    const [date] = useQueryParam('date', StringParam);
+
     useEffect(() => {
+        
         let authmode = "AWS_IAM";
         if (user) {
             authmode = "AMAZON_COGNITO_USER_POOLS";
         }
         API.graphql({
             query: listEventInstancesByDate,
-            variables: { date: new Date().toISOString().substring(0, 10) },
+            variables: { date: date ? date : new Date().toISOString().substring(0, 10) },
             authMode: authmode
         })
             .then((eventInstanceData) => {
@@ -38,7 +42,7 @@ const Event = () => {
                 console.log("authmode ", authmode);
                 console.log("Error: ", err);
             });
-    }, [user]);
+    }, [user, date]);
 
     if (!eventInstance) {
         return <div>Loading...</div>;
