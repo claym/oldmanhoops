@@ -25,7 +25,9 @@ const Event = () => {
         }
         API.graphql({
             query: listEventInstancesByDate,
-            variables: { date: date ? date : new Date().toISOString().substring(0, 10) },
+            variables: { 
+                date: date ? date : new Date().toISOString().substring(0, 10) 
+            },
             authMode: authmode
         })
             .then((eventInstanceData) => {
